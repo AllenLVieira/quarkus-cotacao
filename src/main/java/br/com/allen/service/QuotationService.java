@@ -35,7 +35,6 @@ public class QuotationService {
      */
     public void getCurrencyPrice() {
         CurrencyPriceDTO currencyPriceInfo = currencyPriceClient.getPriceByPair("USD-BRL");
-
         if (isPriceUpdateNeeded(currencyPriceInfo)) {
             QuotationDTO quotationDTO = createQuotationDTO(currencyPriceInfo);
             kafkaEvents.sendNewKafkaEvent(quotationDTO);
@@ -73,10 +72,7 @@ public class QuotationService {
     }
 
     private QuotationDTO createQuotationDTO(CurrencyPriceDTO currencyPriceInfo) {
-        return QuotationDTO.builder()
-                .currencyPrice(new BigDecimal(currencyPriceInfo.getUSDBRL().getBid()))
-                .date(new Date())
-                .build();
+        return QuotationDTO.builder().currencyPrice(new BigDecimal(currencyPriceInfo.getUSDBRL().getBid())).date(new Date()).build();
     }
 
     private QuotationEntity createQuotationEntity(CurrencyPriceDTO currencyPriceInfo) {

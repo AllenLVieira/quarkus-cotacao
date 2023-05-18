@@ -21,6 +21,6 @@ public class USDBRL {
     public String bid;
     public String ask;
     public String timestamp;
-    public String createDate;
+    public String create_date;
 
 }
