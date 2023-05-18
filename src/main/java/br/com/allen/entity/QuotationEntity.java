@@ -25,6 +25,5 @@ public class QuotationEntity {
     @Column(name = "pct_change")
     private String pctChange;
 
-    @Column(name = "pair_currencies")
-    private String pairCurrencies;
+    private String pair;
 }
