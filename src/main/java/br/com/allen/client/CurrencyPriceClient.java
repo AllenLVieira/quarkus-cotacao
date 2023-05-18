@@ -10,7 +10,7 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 @Path("/last")
 @RegisterRestClient
 @ApplicationScoped
-public interface CurrencyClientClient {
+public interface CurrencyPriceClient {
 
     @GET
     @Path("/{pair}")
