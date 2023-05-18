@@ -9,7 +9,7 @@ import lombok.extern.jackson.Jacksonized;
 @Data
 @Builder
 @AllArgsConstructor
-public class UsdBrl {
+public class USDBRL {
 
     public String code;
     public String codein;
@@ -17,7 +17,7 @@ public class UsdBrl {
     public String high;
     public String low;
     public String varBid;
-    public String variation;
+    public String pctChange;
     public String bid;
     public String ask;
     public String timestamp;
