@@ -22,8 +22,8 @@ public class QuotationEntity {
     @Column(name = "currency_price")
     private BigDecimal currencyPrice;
 
-    @Column(name = "currency_variation")
-    private String currencyVariation;
+    @Column(name = "pct_change")
+    private String pctChange;
 
     @Column(name = "pair_currencies")
     private String pairCurrencies;
