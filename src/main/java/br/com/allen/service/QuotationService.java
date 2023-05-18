@@ -8,7 +8,6 @@ import br.com.allen.message.KafkaEvents;
 import br.com.allen.repository.QuotationRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import lombok.AllArgsConstructor;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.math.BigDecimal;
@@ -16,7 +15,6 @@ import java.util.Date;
 import java.util.List;
 
 @ApplicationScoped
-@AllArgsConstructor
 public class QuotationService {
 
     @Inject
