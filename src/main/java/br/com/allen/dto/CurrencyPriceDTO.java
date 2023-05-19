@@ -1,5 +1,6 @@
 package br.com.allen.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,5 +12,6 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 public class CurrencyPriceDTO {
 
-    public USDBRL USDBRL;
+    @JsonProperty("USDBRL")
+    public USDBRL usdbrl;
 }
