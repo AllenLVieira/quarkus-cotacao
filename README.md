@@ -1,73 +1,52 @@
-# cotacao
+# Cotação
+Este projeto utiliza o Quarkus, o Supersonic Subatomic Java Framework.
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+Se você quiser saber mais sobre o Quarkus, visite o site: https://quarkus.io/.
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+## Executando a aplicação em modo de desenvolvimento
+Você pode executar a aplicação em modo de desenvolvimento, que permite o live coding, utilizando o seguinte comando:
 
-## Running the application in dev mode
-
-You can run your application in dev mode that enables live coding using:
-
-```shell script
+```bash
 ./mvnw compile quarkus:dev
 ```
+> NOTA: O Quarkus agora inclui uma interface de usuário de desenvolvimento (Dev UI), disponível apenas em modo de desenvolvimento em http://localhost:8091/q/dev/.
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+## Empacotando e executando a aplicação
+A aplicação pode ser empacotada utilizando o seguinte comando:
 
-## Packaging and running the application
-
-The application can be packaged using:
-
-```shell script
+```bash
 ./mvnw package
 ```
+Isso produzirá o arquivo **'quarkus-run.jar'** no diretório **'target/quarkus-app/'**.
+Lembre-se de que não é um über-jar, pois as dependências são copiadas para o diretório **'target/quarkus-app/lib/'**.
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+A aplicação pode ser executada utilizando o seguinte comando: **'java -jar target/quarkus-app/quarkus-run.jar'**.
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+Se você desejar construir um über-jar, execute o seguinte comando:
 
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
+```bash
 ./mvnw package -Dquarkus.package.type=uber-jar
 ```
+A aplicação, empacotada como um über-jar, pode ser executada utilizando o seguinte comando: **'java -jar target/*-runner.jar'**.
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+## Criando um executável nativo
+Você pode criar um executável nativo utilizando o seguinte comando:
 
-## Creating a native executable
-
-You can create a native executable using:
-
-```shell script
+```bash
 ./mvnw package -Pnative
 ```
+Ou, se você não tiver o GraalVM instalado, pode executar a compilação nativa em um contêiner utilizando o seguinte comando:
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
+```bash
 ./mvnw package -Pnative -Dquarkus.native.container-build=true
 ```
+Em seguida, você pode executar seu executável nativo com o comando: **'./target/cotacao-1.0-SNAPSHOT-runner'**
 
-You can then execute your native executable with: `./target/cotacao-1.0-SNAPSHOT-runner`
+Se você quiser saber mais sobre a criação de executáveis nativos, consulte https://quarkus.io/guides/maven-tooling.
 
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
+## Descrição do Microsserviço
+O microsserviço de cotação possui as seguintes características:
 
-## Related Guides
-
-- Hibernate ORM with Panache ([guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplify your persistence code
-  for Hibernate ORM via the active record or the repository pattern
-- JDBC Driver - MySQL ([guide](https://quarkus.io/guides/datasource)): Connect to the MySQL database via JDBC
-- Apache Kafka Streams ([guide](https://quarkus.io/guides/kafka-streams)): Implement stream processing applications
-  based on Apache Kafka
-
-## Provided Code
-
-### Hibernate ORM
-
-Create your first JPA entity
-
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
-[Related Hibernate with Panache section...](https://quarkus.io/guides/hibernate-orm-panache)
-
+- Realiza um job agendado a cada 35 segundos para consultar um cliente externo da API https://economia.awesomeapi.com.br/{pair}, que retorna a cotação entre as moedas especificadas em {pair} (USD-BRL no caso do projeto).
+- Grava as diferenças de preço entre uma consulta e outra no banco de dados "quotationdb".
+- Publica as cotações no tópico Kafka chamado "quotation".
